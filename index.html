@@ -25,6 +25,17 @@
       }
       .note {font-size:.95rem; opacity:.85}
       footer {opacity:.6; font-size:.9rem; margin-top:1.25rem}
+
+      /* Se till att widget/bubblan verkligen syns överst till höger/höger-nere */
+      .bpw-floating-button, .bpw-widget-container, iframe[name="webchat"] {
+        position: fixed !important;
+        z-index: 2147483000 !important;
+        right: 16px !important;
+        bottom: 16px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+      }
     </style>
   </head>
 
@@ -49,5 +60,27 @@
 
       <footer>Chattbubblan finns nere i hörnet.</footer>
     </main>
-  </body>
-</html>
+
+    <!-- Visa widgeten när den är redo + fallback -->
+    <script>
+      (function () {
+        function showChat() {
+          try {
+            if (window.botpressWebChat && typeof window.botpressWebChat.sendEvent === 'function') {
+              window.botpressWebChat.sendEvent({ type: 'show' });
+            } else if (window.botpressWebChat && typeof window.botpressWebChat.toggle === 'function') {
+              window.botpressWebChat.toggle(true);
+            }
+          } catch (e) { /* no-op */ }
+        }
+
+        // Botpress skickar ett "ready"-event från iframen; fånga olika varianter
+        window.addEventListener('message', function (evt) {
+          const t = evt && evt.data && (evt.data.type || evt.data.event);
+          if (t === 'webchatReady' || t === 'WEBCHAT_READY' || t === 'webchat:ready') {
+            showChat();
+          }
+        });
+
+        // Fallback om eventet missas: försök visa efter 1,2s och igen efter 3s
+        window.addEventListener('load', function () {
