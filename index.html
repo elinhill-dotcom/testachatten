@@ -4,6 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Examensprojekt – Chattbot</title>
+    <!-- liten favicon så vi slipper 404 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💬</text></svg>">
+
+    <!-- Botpress Webchat (läggs i <head> enligt dokumentationen) -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2025/10/09/09/20251009094625-N1NGCKAW.js" defer></script>
+
     <style>
       :root { --max: 760px; }
       body {font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; background:#fafafa; color:#111;}
@@ -33,16 +40,11 @@
 
         <ul>
           <li><strong>Tid:</strong> ca 3–5 minuter.</li>
-          <li><strong>Anonymitet:</strong> din medverkan är helt anonym, och inga personuppgifter samlas in.
-            Du kan avbryta när som helst.</li>
+          <li><strong>Anonymitet:</strong> din medverkan är helt anonym, och inga personuppgifter samlas in. Du kan avbryta när som helst.</li>
         </ul>
       </section>
 
       <footer>Chattbubblan finns nere i hörnet.</footer>
     </main>
-
-    <!-- Botpress Webchat -->
-    <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2025/10/09/09/20251009094625-N1NGCKAW.js" defer></script>
   </body>
 </html>
