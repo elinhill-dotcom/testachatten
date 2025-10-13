@@ -1,142 +1,76 @@
 <!doctype html>
 <html lang="sv">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Examensprojekt – Chattbot</title>
-
-    <!-- Minimal favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💬</text></svg>">
-
-    <style>
-      /* ====== Bas ====== */
-      :root{
-        --page-bg: #f7f7f7;
-        --ink: #111;               /* primär text */
-        --muted: #6b7280;          /* sekundär text */
-        --line: #e6e6e6;           /* hårfin linje */
-        --card: #fff;
-        --radius: 14px;
-        --max: 920px;
-        --focus: 2px solid #111;
-      }
-      *{box-sizing:border-box}
-      html{scroll-behavior:smooth}
-      body{
-        margin:0;
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
-        color:var(--ink);
-        background:var(--page-bg);
-      }
-
-      /* ====== Layout ====== */
-      .wrap{max-width:var(--max); margin:0 auto; padding:72px 20px 88px}
-      header{margin-bottom:20px}
-      h1{font-size: clamp(1.9rem, 3.5vw, 2.6rem); line-height:1.15; margin:0 0 8px}
-      .lede{color:var(--muted); font-size:1rem; margin:0}
-
-      /* ====== Kort / text ====== */
-      .card{
-        background:var(--card);
-        border:1px solid var(--line);
-        border-radius:var(--radius);
-        padding:24px 22px;
-      }
-      .card p{line-height:1.65; margin:.75rem 0}
-      .card ul{margin:.5rem 0 0 1.1rem}
-      .strong{font-weight:700}
-      .muted{color:var(--muted)}
-
-      /* ====== CTA ====== */
-      .cta{
-        display:flex; align-items:center; gap:.9rem; margin:18px 0 0;
-        padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:#fff;
-      }
-      .icon{
-        width:22px; height:22px; display:inline-block;
-      }
-      .btn{
-        appearance:none; border:1px solid #111; background:#111; color:#fff;
-        padding:.62rem 1rem; border-radius:10px; font-weight:600; cursor:pointer;
-      }
-      .btn:focus-visible{outline:var(--focus)}
-      .cta small{color:var(--muted)}
-      .cta a{color:#111; text-underline-offset:3px}
-
-      /* ====== Chat-kort ====== */
-      #chatbox{scroll-margin-top:84px}
-      .chatcard{
-        margin-top:22px; overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:var(--radius);
-      }
-      .chathead{
-        display:flex; justify-content:space-between; align-items:center;
-        padding:14px 16px; border-bottom:1px solid var(--line);
-      }
-      .chathead .title{font-weight:700}
-      .chathead .sub{color:var(--muted); font-size:.95rem}
-      iframe#chatframe{display:block; width:100%; height:72vh; min-height:480px; border:0}
-
-      footer{margin-top:18px; color:var(--muted); font-size:.95rem}
-
-      @media (max-width:640px){
-        .wrap{padding:56px 16px 72px}
-        iframe#chatframe{height:70vh; min-height:420px}
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="wrap">
-      <header>
-        <h1>Testa vår kundservice-chatt</h1>
-        <p class="lede">Stram layout, fokus på uppgiften.</p>
-      </header>
-
-      <section class="card">
-        <p><span class="strong">Hej!</span> Tack för att du hjälper oss i vårt examensarbete i medie- och kommunikationsvetenskap. Det här är ett test av en kundservicechatt – allt är fiktivt men ska likna en riktig kundservicekonversation.</p>
-
-        <p><span class="strong">Din uppgift:</span> försök returnera ett par jeans som inte passade. <span class="strong">Du har ordernummer 12345.</span></p>
-
-        <p class="muted">När chatten är klar klickar du på länken till enkäten och fyller i formuläret (länken visas i chatten).</p>
-
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kundservice-chatt – användartest</title>
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --brand: #000000; /* neutralt; anpassa efter MAU-profil om ni vill */
+      --radius: 16px;
+      --shadow: 0 6px 24px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    body {
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap {max-width: 900px; margin: 48px auto; padding: 0 20px;}
+    .hero {background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px 28px;}
+    .brand {display:flex; align-items:center; gap: 16px; margin-bottom: 12px;}
+    .brand img {height: 36px; width:auto; display:block;}
+    .eyebrow {font-size: 14px; color: var(--muted); letter-spacing: .02em; text-transform: uppercase;}
+    h1 {font-size: clamp(28px, 3.2vw, 40px); line-height:1.15; margin: 6px 0 10px;}
+    .lead {font-size: 18px; color:#1f2937; margin: 0 0 10px;}
+    .card {background:#fafafa; border:1px solid #eee; border-radius: 14px; padding:18px;}
+    .card p {margin: 0 0 10px;}
+    .strong {font-weight:600}
+    ul {margin: 8px 0 0 18px; color:#374151}
+    .cta {display:flex; gap:12px; align-items:center; margin-top: 16px;}
+    .btn {
+      appearance:none; border:0; background:#111827; color:#fff;
+      padding:12px 16px; border-radius: 999px; font-weight:600; cursor:pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,.12);
+    }
+    .btn:hover {filter:brightness(1.05)}
+    .link {font-size: 14px; color:#111827; text-decoration:underline;}
+    .kicker {margin-top: 18px; font-size: 14px; color: var(--muted);}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <div class="brand">
+        <img src="https://mau.se/siteassets/mau_sv_logotyp.svg" alt="Malmö universitet" />
+        <span class="eyebrow">Ett examensarbete av Klara Axelsson och Elin Hill, studenter på Malmö universitet</span>
+      </div>
+      <h1 id="title">Testa vår kundservice-chatt</h1>
+      <p class="lead">Tack för att du hjälper oss att utvärdera en prototyp av en kundservicechatt. Allt i testet är fiktivt men ska efterlikna en verklig konversation.</p>
+      <div class="card">
+        <p><span class="strong">Din uppgift:</span> Försök returnera ett par jeans som inte passade. <span class="strong">Ditt ordernummer är 12345.</span></p>
         <ul>
-          <li><span class="strong">Tid:</span> ca 3–5 minuter.</li>
-          <li><span class="strong">Anonymitet:</span> din medverkan är helt anonym, och inga personuppgifter samlas in. Du kan avbryta när som helst.</li>
+          <li><span class="strong">Tid:</span> cirka 3–5 minuter.</li>
+          <li><span class="strong">Anonymitet:</span> ditt deltagande är anonymt och inga personuppgifter samlas in. Du kan avbryta när som helst.</li>
         </ul>
-
-        <!-- Ikon + tydlig CTA + diskret alternativlänk -->
+        <p><strong>I slutet av chatten kommer en länk till en enkät med några frågor om chatten, gå vidare till den, fyll i dina svar, sedan är undersökningen genomförd.</strong></p>
         <div class="cta">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H8l-4 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
-          <button id="open-chat" class="btn">Gå till chatten</button>
-          <small>…eller <a href="#chatbox">se nedan</a></small>
+          <a class="btn" href="#chat">Gå till chatten</a>
+          <a class="link" href="#instruktioner">…eller läs mer</a>
         </div>
-      </section>
+      </div>
+      <p class="kicker">När chatten är klar öppnas en länk till en kort enkät.</p>
+    </section>
 
-      <!-- Inbäddad Botpress via shareable-länk -->
-      <section id="chatbox" class="chatcard" aria-label="Inbäddad chatt">
-        <div class="chathead">
-          <span class="title">AI-Kalle</span>
-          <span class="sub">Du chattar med en AI-agent</span>
-        </div>
-        <iframe
-          id="chatframe"
-          title="Botpress Webchat"
-          src="https://cdn.botpress.cloud/webchat/v3.3/shareable.html?configUrl=https://files.bpcontent.cloud/2025/10/09/09/20251009094625-9F56GLV5.json"
-          allow="clipboard-read; clipboard-write; microphone *; autoplay *"
-          referrerpolicy="no-referrer"
-        ></iframe>
-      </section>
-
-      <footer>Behöver du hjälp? Hör av dig så justerar jag färger, typsnitt eller logotyp.</footer>
-    </div>
-
-    <script>
-      // Knappen öppnar/scrollar till chatten och fokuserar iframen
-      document.getElementById('open-chat').addEventListener('click', function(){
-        const box = document.getElementById('chatbox');
-        box?.scrollIntoView({ behavior:'smooth', block:'start' });
-        setTimeout(() => document.getElementById('chatframe')?.contentWindow?.focus?.(), 300);
-      });
-    </script>
-  </body>
+    <!-- Nedan kan ni lägga övrigt innehåll / inbäddad chatt -->
+    <section id="chat" style="margin-top:28px">
+      <!-- Er chattkomponent här -->
+    </section>
+  </main>
+</body>
 </html>
