@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Examensprojekt – Chattbot</title>
+    <style>
+      body {font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; padding:4rem 1rem; line-height:1.6;}
+      .wrap {max-width:720px; margin:0 auto;}
+      h1 {font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom:.5rem;}
+      p {opacity:.9}
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>Testa min chattbot</h1>
+      <p>Det här är min testsida. Snart lägger jag in chattboten här.</p>
+    </main>
+  </body>
+</html>
