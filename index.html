@@ -5,81 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Examensprojekt – Chattbot</title>
 
-    <!-- enkel favicon -->
+    <!-- Minimal favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💬</text></svg>">
 
     <style>
-      :root { --max: 760px; }
-      * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body {font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; background:#fafafa; color:#111;}
-      .wrap {max-width: var(--max); margin: 0 auto; padding: 3rem 1rem 6rem;}
-      h1 {font-size: clamp(1.8rem, 3vw, 2.2rem); margin: 0 0 .75rem;}
-      p, li {line-height: 1.6;}
-      .card {
-        background:#fff; border:1px solid #eaeaea; border-radius:16px; padding: 1.25rem 1.25rem;
-        box-shadow: 0 1px 2px rgba(0,0,0,.04);
+      /* ====== Bas ====== */
+      :root{
+        --page-bg: #f7f7f7;
+        --ink: #111;               /* primär text */
+        --muted: #6b7280;          /* sekundär text */
+        --line: #e6e6e6;           /* hårfin linje */
+        --card: #fff;
+        --radius: 14px;
+        --max: 920px;
+        --focus: 2px solid #111;
       }
-      .note {font-size:.95rem; opacity:.85}
-      footer {opacity:.6; font-size:.9rem; margin-top:1.25rem}
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{
+        margin:0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+        color:var(--ink);
+        background:var(--page-bg);
+      }
 
-      /* CTA-rad med ikon + länk */
-      .cta {
-        display:flex; align-items:center; gap:.5rem; margin:1rem 0 1.25rem;
-        padding:.6rem .8rem; background:#fff; border:1px solid #eaeaea; border-radius:12px;
-        box-shadow: 0 1px 2px rgba(0,0,0,.04);
-      }
-      .cta svg { width:22px; height:22px; flex:0 0 22px; }
-      .cta a { font-weight:600; text-decoration:underline; cursor:pointer; }
+      /* ====== Layout ====== */
+      .wrap{max-width:var(--max); margin:0 auto; padding:72px 20px 88px}
+      header{margin-bottom:20px}
+      h1{font-size: clamp(1.9rem, 3.5vw, 2.6rem); line-height:1.15; margin:0 0 8px}
+      .lede{color:var(--muted); font-size:1rem; margin:0}
 
-      /* Inbäddad chatt */
-      #chatbox {
-        max-width: var(--max);
-        margin: 1rem auto 3rem;
-        height: 70vh;          /* justera vid behov */
-        min-height: 420px;
-        border: 1px solid #eaeaea;
-        border-radius: 16px;
-        overflow: hidden;
-        background: #fff;
-        box-shadow: 0 1px 2px rgba(0,0,0,.04);
+      /* ====== Kort / text ====== */
+      .card{
+        background:var(--card);
+        border:1px solid var(--line);
+        border-radius:var(--radius);
+        padding:24px 22px;
       }
-      #chatframe {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        display: block;
+      .card p{line-height:1.65; margin:.75rem 0}
+      .card ul{margin:.5rem 0 0 1.1rem}
+      .strong{font-weight:700}
+      .muted{color:var(--muted)}
+
+      /* ====== CTA ====== */
+      .cta{
+        display:flex; align-items:center; gap:.9rem; margin:18px 0 0;
+        padding:12px 14px; border:1px solid var(--line); border-radius:12px; background:#fff;
+      }
+      .icon{
+        width:22px; height:22px; display:inline-block;
+      }
+      .btn{
+        appearance:none; border:1px solid #111; background:#111; color:#fff;
+        padding:.62rem 1rem; border-radius:10px; font-weight:600; cursor:pointer;
+      }
+      .btn:focus-visible{outline:var(--focus)}
+      .cta small{color:var(--muted)}
+      .cta a{color:#111; text-underline-offset:3px}
+
+      /* ====== Chat-kort ====== */
+      #chatbox{scroll-margin-top:84px}
+      .chatcard{
+        margin-top:22px; overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+      }
+      .chathead{
+        display:flex; justify-content:space-between; align-items:center;
+        padding:14px 16px; border-bottom:1px solid var(--line);
+      }
+      .chathead .title{font-weight:700}
+      .chathead .sub{color:var(--muted); font-size:.95rem}
+      iframe#chatframe{display:block; width:100%; height:72vh; min-height:480px; border:0}
+
+      footer{margin-top:18px; color:var(--muted); font-size:.95rem}
+
+      @media (max-width:640px){
+        .wrap{padding:56px 16px 72px}
+        iframe#chatframe{height:70vh; min-height:420px}
       }
     </style>
   </head>
 
   <body>
-    <main class="wrap">
-      <h1>Testa vår kundservice-chatt</h1>
+    <div class="wrap">
+      <header>
+        <h1>Testa vår kundservice-chatt</h1>
+        <p class="lede">Stram layout, fokus på uppgiften.</p>
+      </header>
 
       <section class="card">
-        <p><strong>Hej!</strong> Tack för att du hjälper oss i vårt examensarbete i medie- och kommunikationsvetenskap.
-          Det här är ett test av en kundservicechatt – allt är fiktivt men ska likna en riktig kundservicekonversation.</p>
+        <p><span class="strong">Hej!</span> Tack för att du hjälper oss i vårt examensarbete i medie- och kommunikationsvetenskap. Det här är ett test av en kundservicechatt – allt är fiktivt men ska likna en riktig kundservicekonversation.</p>
 
-        <p><strong>Din uppgift:</strong> försök returnera ett par jeans som inte passade.
-          <strong>Du har ordernummer 12345.</strong></p>
+        <p><span class="strong">Din uppgift:</span> försök returnera ett par jeans som inte passade. <span class="strong">Du har ordernummer 12345.</span></p>
 
-        <p class="note">När chatten är klar klickar du på länken till enkäten och fyller i formuläret (länken visas i chatten).</p>
+        <p class="muted">När chatten är klar klickar du på länken till enkäten och fyller i formuläret (länken visas i chatten).</p>
 
         <ul>
-          <li><strong>Tid:</strong> ca 3–5 minuter.</li>
-          <li><strong>Anonymitet:</strong> din medverkan är helt anonym, och inga personuppgifter samlas in. Du kan avbryta när som helst.</li>
+          <li><span class="strong">Tid:</span> ca 3–5 minuter.</li>
+          <li><span class="strong">Anonymitet:</span> din medverkan är helt anonym, och inga personuppgifter samlas in. Du kan avbryta när som helst.</li>
         </ul>
 
-        <!-- Ikon + textlänk -->
+        <!-- Ikon + tydlig CTA + diskret alternativlänk -->
         <div class="cta">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H8l-4 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
-          <div>Gå till chatten genom att trycka <a href="#chatbox" id="open-chat">HÄR</a>.</div>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H8l-4 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
+          <button id="open-chat" class="btn">Gå till chatten</button>
+          <small>…eller <a href="#chatbox">se nedan</a></small>
         </div>
       </section>
 
-      <!-- Inbäddad Botpress (via shareable.html) -->
-      <div id="chatbox">
+      <!-- Inbäddad Botpress via shareable-länk -->
+      <section id="chatbox" class="chatcard" aria-label="Inbäddad chatt">
+        <div class="chathead">
+          <span class="title">AI-Kalle</span>
+          <span class="sub">Du chattar med en AI-agent</span>
+        </div>
         <iframe
           id="chatframe"
           title="Botpress Webchat"
@@ -87,16 +125,17 @@
           allow="clipboard-read; clipboard-write; microphone *; autoplay *"
           referrerpolicy="no-referrer"
         ></iframe>
-      </div>
+      </section>
 
-      <footer>Chatten visas i rutan ovan. Tack för hjälpen!</footer>
-    </main>
+      <footer>Behöver du hjälp? Hör av dig så justerar jag färger, typsnitt eller logotyp.</footer>
+    </div>
 
     <script>
-      // Länkens klick scrollar till chatten och fokuserar iframen
-      document.getElementById('open-chat').addEventListener('click', function () {
-        const iframe = document.getElementById('chatframe');
-        setTimeout(() => iframe?.contentWindow?.focus?.(), 200);
+      // Knappen öppnar/scrollar till chatten och fokuserar iframen
+      document.getElementById('open-chat').addEventListener('click', function(){
+        const box = document.getElementById('chatbox');
+        box?.scrollIntoView({ behavior:'smooth', block:'start' });
+        setTimeout(() => document.getElementById('chatframe')?.contentWindow?.focus?.(), 300);
       });
     </script>
   </body>
