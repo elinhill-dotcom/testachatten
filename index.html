@@ -26,21 +26,34 @@
         <p><strong>Hej!</strong> Tack för att du hjälper oss i vårt examensarbete i medie- och kommunikationsvetenskap.
           Det här är ett test av en kundservicechatt – allt är fiktivt men ska likna en riktig kundservicekonversation.</p>
 
-        <p><strong>Din uppgift:</strong> försök returnera ett par jeans som inte passade.</p>
+        <p><strong>Din uppgift:</strong> försök returnera ett par jeans som inte passade. <strong>Du har ordernummer 12345.</strong></p>
+
+        <p class="note">När chatten är klar klickar du på länken till enkäten och fyller i formuläret (länken visas i chatten).</p>
 
         <ul>
           <li><strong>Tid:</strong> ca 3–5 minuter.</li>
           <li><strong>Anonymitet:</strong> din medverkan är helt anonym, och inga personuppgifter samlas in. Du kan avbryta när som helst.</li>
         </ul>
-
-        <p class="note">När chatten är klar dyker **länken till enkäten upp i chatten**.</p>
       </section>
 
       <footer>Chattbubblan finns nere i hörnet.</footer>
     </main>
 
-    <!-- Botpress Webchat (din embed-kod, lämna som är) -->
-    <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
-    <script src="https://files.bpcontent.cloud/2025/10/09/09/20251009094625-N1NGCKAW.js" defer></script>
+    <!-- Botpress Webchat -->
+    <!-- 1) Ladda inject.js -->
+    <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js" defer></script>
+
+    <!-- 2) När sidan (och inject.js) är redo, ladda din init-fil -->
+    <script>
+      window.addEventListener('load', function () {
+        if (!window.botpressWebChat) {
+          console.warn('Botpress inject.js verkar inte ha laddats ännu.');
+        }
+        var s = document.createElement('script');
+        s.src = "https://files.bpcontent.cloud/2025/10/09/09/20251009094625-N1NGCKAW.js";
+        s.defer = true;
+        document.body.appendChild(s);
+      });
+    </script>
   </body>
 </html>
