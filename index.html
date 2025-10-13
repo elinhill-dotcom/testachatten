@@ -24,8 +24,8 @@
     }
     .wrap {max-width: var(--maxw); margin: 48px auto; padding: 0 20px;}
     .hero {background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px;}
-    .brand {display:flex; align-items:center; gap: 16px; margin-bottom: 12px;}
-    .brand img {height: 36px; width:auto; display:block;}
+    .brand {display:flex; align-items:center; gap: 12px; margin-bottom: 10px;}
+    .brand img {height: 34px; width:auto; display:block;}
     .eyebrow {font-size: 14px; color: var(--muted); letter-spacing: .02em; text-transform: uppercase;}
     h1 {font-size: clamp(28px, 3.2vw, 40px); line-height:1.15; margin: 6px 0 10px;}
     .lead {font-size: 18px; color:#1f2937; margin: 0 0 10px;}
@@ -33,7 +33,8 @@
     .card p {margin: 0 0 10px;}
     .strong {font-weight:600}
     ul {margin: 8px 0 0 18px; color:#374151}
-    .cta {display:flex; gap:12px; align-items:center; margin-top: 16px;}
+
+    .cta {display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top: 16px;}
     .btn {
       appearance:none; border:0; background:#111827; color:#fff;
       padding:12px 16px; border-radius: 999px; font-weight:600; cursor:pointer;
@@ -50,10 +51,29 @@
       background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
       overflow: hidden; border:1px solid var(--border);
     }
-    .chat-header {padding:14px 16px; background:#111827; color:#fff; font-weight:600; display:flex; justify-content:space-between;}
+    .chat-header {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      background: #fafafa;
+      font-weight: 600;
+    }
     #chatframe {display:block; width:100%; height:72vh; min-height:480px; border:0}
+
     .footer-cta {margin: 24px 0 60px;}
-    @media (max-width:640px){ #chatframe{height:70vh; min-height:420px} }
+
+    /* ====== Mobilanpassning ====== */
+    @media (max-width: 640px){
+      .wrap {margin: 28px auto; padding: 0 14px;}
+      .hero {padding: 18px;}
+      .brand img {height: 28px;}
+      h1 {font-size: clamp(22px, 6vw, 28px);}
+      .lead, .card, .chat-header {font-size: 15px;}
+      .card {padding:14px;}
+      ul {margin-left: 16px;}
+      .btn {padding:10px 14px}
+      #chatframe {height: 68vh; min-height: 420px;}
+      .footer-cta {margin: 18px 0 44px;}
+    }
   </style>
 </head>
 <body>
@@ -63,6 +83,7 @@
         <img src="https://mau.se/siteassets/mau_sv_logotyp.svg" alt="Malmö universitet" />
         <span class="eyebrow">Ett examensarbete av Klara Axelsson och Elin Hill, studenter på Malmö universitet</span>
       </div>
+
       <h1 id="title">Testa vår kundservice-chatt</h1>
       <p class="lead">Tack för att du hjälper oss att utvärdera en prototyp av en kundservicechatt. Allt i testet är fiktivt men ska efterlikna en verklig konversation.</p>
 
@@ -75,19 +96,17 @@
         <p><strong>I slutet av chatten kommer en länk till en enkät med några frågor om chatten – gå vidare till den och fyll i dina svar.</strong></p>
 
         <div class="cta">
-          <a id="startTop" class="btn" href="#chatbox">Starta chatten</a>
-          <a class="link" href="#instruktioner">…eller läs mer</a>
+          <a id="startTop" class="btn" href="#chatbox">Starta chatten här</a>
+          <a class="link" href="#chatbox">…eller scrolla ner</a>
         </div>
       </div>
+
       <p class="kicker">När chatten är klar öppnas en länk till en kort enkät.</p>
     </section>
 
     <!-- BOTPRESS – inbäddad via shareable-länk -->
-    <section id="chatbox" class="chat-card" aria-label="Kundservicechatt">
-      <div class="chat-header">
-        <span>Kundservice – Prototyp</span>
-        <span>AI-agent</span>
-      </div>
+    <section id="chatbox" class="chat-card" aria-label="Chatten">
+      <div class="chat-header">Chatten</div>
       <iframe
         id="chatframe"
         title="Botpress Webchat"
@@ -97,14 +116,13 @@
       ></iframe>
     </section>
 
-    <!-- UNDRE KNAPP (samma funktion) -->
     <div class="footer-cta">
-      <a id="startBottom" class="btn" href="#chatbox">Starta chatten</a>
+      <a id="startBottom" class="btn" href="#chatbox">Starta chatten här</a>
     </div>
   </main>
 
   <script>
-    // Båda knapparna scrollar till chatten och försöker fokusera iframen
+    // Knapparna: scrolla till chatten och fokusera iframen (bättre på mobil).
     function goToChat(e){
       e?.preventDefault?.();
       const box = document.getElementById('chatbox');
