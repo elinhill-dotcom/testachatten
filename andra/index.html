@@ -6,18 +6,30 @@
   <title>Kundservice-chatt – användartest (sida 2)</title>
   <style>
     :root {
-      --bg: #f6f7f9; --card: #ffffff; --text: #111827; --muted: #6b7280;
-      --radius: 16px; --shadow: 0 6px 24px rgba(0,0,0,.08); --border: #e5e7eb; --maxw: 900px;
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --radius: 16px;
+      --shadow: 0 6px 24px rgba(0,0,0,.08);
+      --border: #e5e7eb;
+      --maxw: 900px;
     }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
-    body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--text); }
-    [id]{scroll-margin-top:84px}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body {
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+    }
+    [id]{scroll-margin-top: 84px;}
 
     .wrap {max-width: var(--maxw); margin: 48px auto; padding: 0 20px;}
     .hero {background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px;}
     .brand {display:flex; align-items:center; gap: 12px; margin-bottom: 10px;}
     .brand img {height: 34px; width:auto; display:block;}
-    .eyebrow {font-size: 14px; color: var(--muted);}
+    .eyebrow {font-size: 14px; color: var(--muted); letter-spacing: .01em;}
     h1 {font-size: clamp(28px, 3.2vw, 40px); line-height:1.15; margin: 6px 0 10px;}
     .lead {font-size: 18px; color:#1f2937; margin: 0 0 10px;}
     .card {background:#fafafa; border:1px solid var(--border); border-radius: 14px; padding:18px;}
@@ -26,99 +38,12 @@
     ul {margin: 8px 0 0 18px; color:#374151}
 
     .cta {display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top: 16px;}
-    .btn {appearance:none; border:0; background:#111827; color:#fff; padding:12px 16px; border-radius: 999px; font-weight:600; cursor:pointer; box-shadow: 0 2px 10px rgba(0,0,0,.12); text-decoration: none;}
+    .btn {
+      appearance:none; border:0; background:#111827; color:#fff;
+      padding:12px 16px; border-radius: 999px; font-weight:600; cursor:pointer;
+      box-shadow: 0 2px 10px rgba(0,0,0,.12);
+      text-decoration: none; display:inline-block;
+    }
     .btn:hover {filter:brightness(1.05)}
     .link {font-size: 14px; color:#111827; text-decoration:underline;}
     .kicker {margin-top: 18px; font-size: 14px; color: var(--muted);}
-
-    /* Embedded-ruta (används bara om du sätter Embedded + #bp-embedded-webchat i Botpress) */
-    #bp-embedded-webchat {
-      margin-top:28px; background: var(--card); border-radius: var(--radius);
-      box-shadow: var(--shadow); border:1px solid var(--border);
-      overflow:hidden; min-height: 480px; height: 72vh; display:none; /* visas automatiskt nedan om den fylls */
-    }
-
-    /* Mobil */
-    @media (max-width: 640px){
-      .wrap {margin: 28px auto; padding: 0 14px;}
-      .hero {padding: 18px;}
-      .brand img {height: 28px;}
-      h1 {font-size: clamp(22px, 6vw, 28px);}
-      .lead, .card {font-size: 15px;}
-      .card {padding:14px;}
-      ul {margin-left: 16px;}
-      .btn {padding:10px 14px}
-      #bp-embedded-webchat {min-height: 420px; height: 68vh;}
-    }
-  </style>
-
-  <!-- Botpress – ditt ANDRA script (Toggle/Embedded via konfig) -->
-  <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
-  <script src="https://files.bpcontent.cloud/2025/10/09/09/20251009093845-4ITDW63K.js" defer></script>
-</head>
-<body id="top">
-  <main class="wrap">
-    <section class="hero" aria-labelledby="title">
-      <div class="brand">
-        <img src="https://mau.se/siteassets/mau_sv_logotyp.svg" alt="Malmö universitet" />
-        <span class="eyebrow">Klara Axelsson och Elin Hill, studenter på Malmö universitet, medie- och kommunikationsvetenskap.</span>
-      </div>
-
-      <h1 id="title">Testa vår kundservice-chatt – sida 2</h1>
-      <p class="lead">Samma layout som första sidan, men med en annan bot/konfiguration.</p>
-
-      <div class="card" id="instruktioner">
-        <p><span class="strong">Din uppgift:</span> Försök returnera ett par jeans som inte passade. <span class="strong">Ditt ordernummer är 12345.</span></p>
-        <ul>
-          <li><span class="strong">Tid:</span> cirka 3–5 minuter.</li>
-          <li><span class="strong">Anonymitet:</span> ditt deltagande är anonymt och inga personuppgifter samlas in. Du kan avbryta när som helst.</li>
-        </ul>
-        <p><strong>I slutet av chatten kommer en länk till en enkät – följ den och fyll i dina svar.</strong></p>
-
-        <div class="cta">
-          <a id="openChat" class="btn" href="#">Starta chatten här</a>
-          <a class="link" href="/">Till första sidan</a>
-        </div>
-      </div>
-
-      <p class="kicker">Klicka på knappen för att öppna chatten (i Toggle-läge) eller scrolla ner om du kör Embedded.</p>
-    </section>
-
-    <!-- Embedded-behållare: används bara om du satt Container selector = #bp-embedded-webchat i Botpress -->
-    <section id="bp-embedded-webchat" aria-label="Chatten (inbäddad)"></section>
-  </main>
-
-  <script>
-    // 1) Knappen öppnar bubblan i Toggle-läge (om aktivt)
-    document.getElementById('openChat').addEventListener('click', function (e) {
-      e.preventDefault();
-      try {
-        if (window.botpressWebChat?.sendEvent) {
-          window.botpressWebChat.sendEvent({ type: 'show' });
-        } else if (window.botpressWebChat?.toggle) {
-          window.botpressWebChat.toggle(true);
-        }
-      } catch(_) {}
-      // Scrolla till embedded-rutan om den används
-      const box = document.getElementById('bp-embedded-webchat');
-      if (box && box.style.display !== 'none') {
-        box.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-
-    // 2) Om Botpress är satt till Embedded och injicerar innehåll i #bp-embedded-webchat,
-    //    visar vi rutan automatiskt när den fylls.
-    (function(){
-      const box = document.getElementById('bp-embedded-webchat');
-      if (!box) return;
-      const obs = new MutationObserver(() => {
-        if (box.childElementCount > 0) {
-          box.style.display = 'block';
-          obs.disconnect();
-        }
-      });
-      obs.observe(box, { childList: true });
-    })();
-  </script>
-</body>
-</html>
