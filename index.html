@@ -13,4 +13,41 @@
     <script src="https://files.bpcontent.cloud/2025/10/09/09/20251009094625-N1NGCKAW.js" defer></script>
 
     <style>
-      :root { --max: 760px;
+      :root { --max: 760px; }
+      * { box-sizing: border-box; }
+      body {font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; background:#fafafa; color:#111;}
+      .wrap {max-width: var(--max); margin: 0 auto; padding: 3rem 1rem 6rem;}
+      h1 {font-size: clamp(1.8rem, 3vw, 2.2rem); margin: 0 0 .75rem;}
+      p, li {line-height: 1.6;}
+      .card {
+        background:#fff; border:1px solid #eaeaea; border-radius:16px; padding: 1.25rem 1.25rem;
+        box-shadow: 0 1px 2px rgba(0,0,0,.04);
+      }
+      .note {font-size:.95rem; opacity:.85}
+      footer {opacity:.6; font-size:.9rem; margin-top:1.25rem}
+    </style>
+  </head>
+
+  <body>
+    <main class="wrap">
+      <h1>Testa vår kundservice-chatt</h1>
+
+      <section class="card">
+        <p><strong>Hej!</strong> Tack för att du hjälper oss i vårt examensarbete i medie- och kommunikationsvetenskap.
+          Det här är ett test av en kundservicechatt – allt är fiktivt men ska likna en riktig kundservicekonversation.</p>
+
+        <p><strong>Din uppgift:</strong> försök returnera ett par jeans som inte passade.
+          <strong>Du har ordernummer 12345.</strong></p>
+
+        <p class="note">När chatten är klar klickar du på länken till enkäten och fyller i formuläret (länken visas i chatten).</p>
+
+        <ul>
+          <li><strong>Tid:</strong> ca 3–5 minuter.</li>
+          <li><strong>Anonymitet:</strong> din medverkan är helt anonym, och inga personuppgifter samlas in. Du kan avbryta när som helst.</li>
+        </ul>
+      </section>
+
+      <footer>Chattbubblan finns nere i hörnet.</footer>
+    </main>
+  </body>
+</html>
