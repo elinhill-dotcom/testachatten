@@ -29,7 +29,6 @@
     #chatbox{margin-top:28px}
     .chat-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--border)}
     .chat-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border);background:#fafafa;font-weight:600}
-    .chat-header .info{font-weight:500;color:#374151;font-size:.95rem}
     .chat-header a{font-weight:600;text-decoration:underline;color:#111827;font-size:.95rem}
 
     /* Embedded-container: gör plats åt chatten */
@@ -55,7 +54,6 @@
       .card{padding:14px}
       ul{margin-left:16px}
       .footer-cta{margin:18px 0 44px}
-      .chat-header .info{font-size:.9rem}
       #bp-embedded-webchat{height:64vh;min-height:380px}
     }
   </style>
@@ -86,13 +84,11 @@
     <section id="chatbox" class="chat-card" aria-label="Chatten">
       <div class="chat-header">
         <span>Chatten</span>
-        <span class="info">Embedded-läge: chattrutan visas nedan.</span>
         <a href="#top" class="back-to-top">Till instruktionerna ↑</a>
       </div>
 
-      <!-- ⬇️ ⬇️ EMBED-CONTAINER (ny) ⬇️ ⬇️ -->
+      <!-- EMBED-CONTAINER -->
       <div id="bp-embedded-webchat" aria-label="Inbäddad chatt"></div>
-      <!-- ⬆️ ⬆️ EMBED-CONTAINER ⬆️ ⬆️ -->
     </section>
   </main>
 
@@ -126,44 +122,33 @@
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
   <script src="https://files.bpcontent.cloud/2025/10/14/08/20251014084554-67IVFLND.js"></script>
 
-  <!-- 🔧 Tvinga embedded-läge oavsett extern konfig -->
+  <!-- Tvinga embedded-läge i containern -->
   <script>
     (function ensureEmbedded(){
       function mountEmbedded(){
-        // Om extern filen redan initierat webchatten kan vi slå ihop/överstyra
         if (window.botpressWebChat?.mergeConfig) {
           window.botpressWebChat.mergeConfig({
             container: '#bp-embedded-webchat',
-            hideWidget: true,            // dölj den flytande bubblan
+            hideWidget: true,
             layout: { width: '100%', height: '100%' }
           });
-          // Säkerställ att den visas i containern
-          if (window.botpressWebChat.sendEvent) {
-            window.botpressWebChat.sendEvent({ type: 'show' });
-          }
+          window.botpressWebChat.sendEvent?.({ type: 'show' });
           return true;
         }
-        // Om mergeConfig saknas, testa init (beroende på version)
         if (window.botpressWebChat?.init) {
           try {
             window.botpressWebChat.init({
               container: '#bp-embedded-webchat',
               hideWidget: true,
               layout: { width: '100%', height: '100%' }
-              // Övriga värden (clientId, botId, etc.) kommer från den externa .js:en
+              // Övriga värden (botId m.m.) kommer från den externa konfig-filen.
             });
             return true;
           } catch(e){}
         }
         return false;
       }
-
-      // Kör när scriptsen laddats klart
-      const tryMount = () => {
-        if (!mountEmbedded()) setTimeout(tryMount, 100);
-      };
-
-      // Kör efter DOMContentLoaded (om redan redo, kör direkt)
+      const tryMount = () => { if (!mountEmbedded()) setTimeout(tryMount, 100); };
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', tryMount);
       } else {
