@@ -49,11 +49,13 @@
       .footer-cta{margin:18px 0 44px}
       .chat-header .info{font-size:.9rem}
     }
-  </style>
 
-  <!-- Botpress – DITT NYA SCRIPT (bubbla/Toggle eller Embedded enligt konfiguration) -->
-  <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
-  <script src="https://files.bpcontent.cloud/2025/10/14/08/20251014084554-67IVFLND.js" defer></script>
+    /* 🔧 Säkerställ att Botpress-bubblan syns överst */
+    .bpw-iframe-wrapper,
+    .bpw-floating-button {
+      z-index: 2147483000 !important;
+    }
+  </style>
 </head>
 <body id="top">
   <main class="wrap">
@@ -113,5 +115,9 @@
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     if (isMobile) document.querySelectorAll('[id]').forEach(el => el.style.scrollMarginTop = '120px');
   </script>
+
+  <!-- Botpress – DITT NYA SCRIPT (flyttat hit för säkrare init) -->
+  <script defer src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
+  <script defer src="https://files.bpcontent.cloud/2025/10/14/08/20251014084554-67IVFLND.js"></script>
 </body>
 </html>
