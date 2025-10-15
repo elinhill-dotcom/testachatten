@@ -32,6 +32,14 @@
     .chat-header .info{font-weight:500;color:#374151;font-size:.95rem}
     .chat-header a{font-weight:600;text-decoration:underline;color:#111827;font-size:.95rem}
 
+    /* Embedded-container: gör plats åt chatten */
+    #bp-embedded-webchat{
+      width:100%;
+      height:70vh;              /* justera vid behov */
+      min-height:420px;
+      display:block;
+    }
+
     /* Flytande “Till toppen”-knapp */
     .to-top{position:fixed;right:16px;bottom:16px;z-index:9999;background:#111827;color:#fff;border:0;border-radius:999px;padding:12px 14px;box-shadow:0 6px 20px rgba(0,0,0,.2);opacity:0;pointer-events:none;transform:translateY(8px);transition:.2s}
     .to-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
@@ -48,12 +56,7 @@
       ul{margin-left:16px}
       .footer-cta{margin:18px 0 44px}
       .chat-header .info{font-size:.9rem}
-    }
-
-    /* 🔧 Säkerställ att Botpress-bubblan syns överst */
-    .bpw-iframe-wrapper,
-    .bpw-floating-button {
-      z-index: 2147483000 !important;
+      #bp-embedded-webchat{height:64vh;min-height:380px}
     }
   </style>
 </head>
@@ -76,17 +79,20 @@
         <p><strong>I slutet av chatten kommer en länk till en enkät – följ den och fyll i dina svar.</strong></p>
       </div>
 
-      <p class="kicker">Om du inte ser chatbubblan, prova att uppdatera sidan eller stänga av adblocker.</p>
+      <p class="kicker">Om du inte ser chatten, prova att uppdatera sidan eller stänga av adblocker.</p>
     </section>
 
     <!-- CHAT – rubrik + länk upp -->
     <section id="chatbox" class="chat-card" aria-label="Chatten">
       <div class="chat-header">
         <span>Chatten</span>
-        <span class="info">För att starta: tryck på den blåa cirkeln längst ner till höger.</span>
+        <span class="info">Embedded-läge: chattrutan visas nedan.</span>
         <a href="#top" class="back-to-top">Till instruktionerna ↑</a>
       </div>
-      <!-- Ingen iframe: Botpress körs som bubbla (Toggle). Om du byter till Embedded, sätt Container selector = #bp-embedded-webchat och lägg in <div id="bp-embedded-webchat"></div> här. -->
+
+      <!-- ⬇️ ⬇️ EMBED-CONTAINER (ny) ⬇️ ⬇️ -->
+      <div id="bp-embedded-webchat" aria-label="Inbäddad chatt"></div>
+      <!-- ⬆️ ⬆️ EMBED-CONTAINER ⬆️ ⬆️ -->
     </section>
   </main>
 
@@ -116,8 +122,54 @@
     if (isMobile) document.querySelectorAll('[id]').forEach(el => el.style.scrollMarginTop = '120px');
   </script>
 
-  <!-- Botpress – DITT NYA SCRIPT (flyttat hit för säkrare init) -->
-  <script defer src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
-  <script defer src="https://files.bpcontent.cloud/2025/10/14/08/20251014084554-67IVFLND.js"></script>
+  <!-- Botpress – scripts -->
+  <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2025/10/14/08/20251014084554-67IVFLND.js"></script>
+
+  <!-- 🔧 Tvinga embedded-läge oavsett extern konfig -->
+  <script>
+    (function ensureEmbedded(){
+      function mountEmbedded(){
+        // Om extern filen redan initierat webchatten kan vi slå ihop/överstyra
+        if (window.botpressWebChat?.mergeConfig) {
+          window.botpressWebChat.mergeConfig({
+            container: '#bp-embedded-webchat',
+            hideWidget: true,            // dölj den flytande bubblan
+            layout: { width: '100%', height: '100%' }
+          });
+          // Säkerställ att den visas i containern
+          if (window.botpressWebChat.sendEvent) {
+            window.botpressWebChat.sendEvent({ type: 'show' });
+          }
+          return true;
+        }
+        // Om mergeConfig saknas, testa init (beroende på version)
+        if (window.botpressWebChat?.init) {
+          try {
+            window.botpressWebChat.init({
+              container: '#bp-embedded-webchat',
+              hideWidget: true,
+              layout: { width: '100%', height: '100%' }
+              // Övriga värden (clientId, botId, etc.) kommer från den externa .js:en
+            });
+            return true;
+          } catch(e){}
+        }
+        return false;
+      }
+
+      // Kör när scriptsen laddats klart
+      const tryMount = () => {
+        if (!mountEmbedded()) setTimeout(tryMount, 100);
+      };
+
+      // Kör efter DOMContentLoaded (om redan redo, kör direkt)
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', tryMount);
+      } else {
+        tryMount();
+      }
+    })();
+  </script>
 </body>
 </html>
