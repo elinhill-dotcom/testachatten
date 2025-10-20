@@ -1,8 +1,17 @@
-<!doctype html>
-<html lang="sv">
-<head><meta charset="utf-8"><title>Tredje</title></head>
-<body>
-  <h1>Tredje sidan</h1>
-  <p><a href="/">Till startsidan</a></p>
-</body>
-</html>
+/* Dölj ALLA varianter av typing-indikatorn i Botpress Webchat */
+.bpw-typing-indicator,
+.bpw-typing-bubble,
+.bpw-typing,
+.bpw-message-list [class*="typing"],
+.bpw-typing-indicator *,
+.bpw-typing-bubble * {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Tillfällig testregel – så ser vi att CSS:en laddas */
+.bpw-header { outline: 3px solid magenta !important; }
