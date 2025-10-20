@@ -1,0 +1,17 @@
+/* Dölj ALLA varianter av typing-indikatorn i Botpress Webchat */
+.bpw-typing-indicator,
+.bpw-typing-bubble,
+.bpw-typing,
+.bpw-message-list [class*="typing"],
+.bpw-typing-indicator *,
+.bpw-typing-bubble * {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Tillfällig test – synlig kant på headern */
+.bpw-header { outline: 3px solid magenta !important; }
