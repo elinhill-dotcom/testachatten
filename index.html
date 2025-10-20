@@ -3,13 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Användartest: kundservice-chatt med Botpress. Försök returnera ett par jeans (ordernr 12345)." />
+  <meta name="robots" content="noindex, nofollow" />
   <title>Kundservice-chatt – användartest</title>
   <style>
     :root {
       --bg:#f6f7f9; --card:#fff; --text:#111827; --muted:#6b7280;
       --radius:16px; --shadow:0 6px 24px rgba(0,0,0,.08); --border:#e5e7eb; --maxw:900px;
     }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
     body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";background:var(--bg);color:var(--text)}
     [id]{scroll-margin-top:84px}
 
@@ -35,9 +39,7 @@
     /* Flytande “Till toppen”-knapp */
     .to-top{position:fixed;right:16px;bottom:16px;z-index:9999;background:#111827;color:#fff;border:0;border-radius:999px;padding:12px 14px;box-shadow:0 6px 20px rgba(0,0,0,.2);opacity:0;pointer-events:none;transform:translateY(8px);transition:.2s}
     .to-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
-    .to-top:focus-visible{outline:2px solid #111}
-
-    /* Mobil */
+    .to-top:focus-visible{outline:2px solid #111}    /* Mobil */
     @media (max-width:640px){
       .wrap{margin:28px auto;padding:0 14px}
       .hero{padding:18px}
@@ -49,17 +51,44 @@
       .footer-cta{margin:18px 0 44px}
       .chat-header .info{font-size:.9rem}
     }
+
+    /* Fokus-stilar för bättre tillgänglighet */
+    a:focus-visible, button:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; border-radius: 8px; }
+
+    /* Dölj Botpress skrivprickar helt */
+    .bpw-typing-indicator,
+    .bpw-typing-indicator-container,
+    .bpw-typing-indicator-dot { display: none !important; visibility: hidden !important; }
+    /* Om Botpress använder aria-live/region för typing, håll kvar layouten utan att visa något */
+    .bpw-typing-indicator-placeholder { height: 0 !important; overflow: hidden !important; }
+  
+      .hero{padding:18px}
+      .brand img{height:28px}
+      h1{font-size:clamp(22px,6vw,28px)}
+      .card,.chat-header{font-size:15px}
+      .card{padding:14px}
+      ul{margin-left:16px}
+      .footer-cta{margin:18px 0 44px}
+      .chat-header .info{font-size:.9rem}
+    }
+
+    /* Fokus-stilar för bättre tillgänglighet */
+    a:focus-visible, button:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; border-radius: 8px; }
   </style>
 
-  <!-- Botpress – DITT NYA SCRIPT (bubbla/Toggle eller Embedded enligt konfiguration) -->
-  <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
+  <!-- Preconnect för snabbare laddning av inbäddad chatt -->
+  <link rel="preconnect" href="https://cdn.botpress.cloud" crossorigin>
+  <link rel="preconnect" href="https://files.bpcontent.cloud" crossorigin>
+
+  <!-- Botpress – bubbla (Toggle) eller Embedded enligt konfiguration -->
+  <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js" defer></script>
   <script src="https://files.bpcontent.cloud/2025/10/09/09/20251009094625-N1NGCKAW.js" defer></script>
 </head>
 <body id="top">
   <main class="wrap">
     <section class="hero" aria-labelledby="title">
       <div class="brand">
-        <img src="https://mau.se/siteassets/mau_sv_logotyp.svg" alt="Malmö universitet" />
+        <img src="https://mau.se/siteassets/mau_sv_logotyp.svg" alt="Malmö universitet" loading="lazy" />
         <span class="eyebrow">Klara Axelsson och Elin Hill, studenter på Malmö universitet, medie- och kommunikationsvetenskap.</span>
       </div>
 
@@ -68,7 +97,7 @@
       <div class="card" id="instruktioner">
         <p><span class="strong">Din uppgift:</span> Försök returnera ett par jeans som inte passade. <span class="strong">Ditt ordernummer är 12345.</span></p>
         <ul>
-          <li><span class="strong">Tid (inkl enkät):</span> cirka 3–5 minuter.</li>
+          <li><span class="strong">Tid (inkl. enkät):</span> cirka 3–5 minuter.</li>
           <li><span class="strong">Anonymitet:</span> ditt deltagande är anonymt och inga personuppgifter samlas in. Du kan avbryta när som helst.</li>
         </ul>
         <p><strong>I slutet av chatten kommer en länk till en enkät – följ den och fyll i dina svar.</strong></p>
@@ -91,12 +120,42 @@
   <!-- Flytande “Till toppen”-knapp -->
   <button id="toTopBtn" class="to-top" aria-label="Till instruktionerna">↑ Till toppen</button>
 
+  <noscript>
+    <div class="wrap" style="max-width:900px;margin:16px auto;color:#b91c1c;">
+      JavaScript krävs för chatten. Aktivera JavaScript och ladda om sidan.
+    </div>
+  </noscript>
+
   <script>
     // Flytande “Till toppen”
     const toTop = document.getElementById('toTopBtn');
-    function onScroll(){ if (window.scrollY > 300) toTop.classList.add('show'); else toTop.classList.remove('show'); }
-    window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+    function onScroll(){
+      if (window.scrollY > 300) toTop.classList.add('show');
+      else toTop.classList.remove('show');
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
-    // Tvinga scroll till allra högst upp (mobil/iOS-säkert)
+    // Mjuk scroll till toppen (respekterar reduce-motion)
     function smoothScrollTop(e){
-      e?.preventDefault?.(
+      if (e && typeof e.preventDefault === 'function') e.preventDefault();
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    }
+    document.querySelectorAll('.back-to-top').forEach(a => a.addEventListener('click', smoothScrollTop));
+    toTop.addEventListener('click', smoothScrollTop);
+
+    // (Valfritt) Fokusera huvudrubriken vid sidladdning för skärmläsare/kamera
+    // document.getElementById('title').setAttribute('tabindex', '-1');
+    // document.getElementById('title').focus();
+
+    // (Valfritt) Om ni byter till Embedded-läge i Botpress, se till att JS-config pekar på rätt container:
+    // window.botpressWebChat.init({
+    //   hostUrl: 'https://cdn.botpress.cloud/webchat/v3',
+    //   botId: 'DIN-BOT-ID',
+    //   clientId: 'DIN-CLIENT-ID',
+    //   container: '#bp-embedded-webchat'
+    // });
+  </script>
+</body>
+</html>
