@@ -28,9 +28,19 @@
     /* Chat-ram */
     #chatbox{margin-top:28px}
     .chat-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid var(--border)}
-    .chat-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border);background:#fafafa;font-weight:600}
-    .chat-header .info{font-weight:500;color:#374151;font-size:.95rem}
-    .chat-header a{font-weight:600;text-decoration:underline;color:#111827;font-size:.95rem}
+    /* Grid gör det lätt att centrera infotexten mellan vänster/höger */
+    .chat-header{
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      align-items:center;
+      gap:12px;
+      padding:12px 14px;
+      border-bottom:1px solid var(--border);
+      background:#fafafa;
+      font-weight:600;
+    }
+    .chat-header .info{font-weight:500;color:#374151;font-size:.95rem;text-align:center}
+    .chat-header a{font-weight:600;text-decoration:underline;color:#111827;font-size:.95rem; justify-self:end}
 
     /* Flytande “Till toppen”-knapp */
     .to-top{position:fixed;right:16px;bottom:16px;z-index:9999;background:#111827;color:#fff;border:0;border-radius:999px;padding:12px 14px;box-shadow:0 6px 20px rgba(0,0,0,.2);opacity:0;pointer-events:none;transform:translateY(8px);transition:.2s}
@@ -51,7 +61,7 @@
     }
   </style>
 
-  <!-- Botpress – behåll dina länkar (bubbla/Toggle) -->
+  <!-- Botpress – dina skript (bubbla/Toggle) -->
   <script src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"></script>
   <script src="https://files.bpcontent.cloud/2025/10/14/08/20251014084554-67IVFLND.js" defer></script>
 </head>
@@ -77,14 +87,13 @@
       <p class="kicker">Om du inte ser chatbubblan, prova att uppdatera sidan eller stänga av adblocker.</p>
     </section>
 
-    <!-- CHAT – rubrik + länk upp -->
+    <!-- CHAT – rubrik + länk upp (ingen iframe/container i bubble-läge) -->
     <section id="chatbox" class="chat-card" aria-label="Chatten">
       <div class="chat-header">
         <span>Chatten</span>
         <span class="info">För att starta: tryck på cirkeln längst ner till höger.</span>
         <a href="#top" class="back-to-top">Till instruktionerna ↑</a>
       </div>
-      <!-- Ingen iframe/container: Botpress körs som bubbla (Toggle). -->
     </section>
   </main>
 
